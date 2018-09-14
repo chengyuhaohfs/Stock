@@ -1,0 +1,30 @@
+# how to install emacs
+sudo apt-get install emacs
+
+# how to check ip in linux
+ip addr showf
+sudo ifconfig # after installing net-tools
+hostname -I # show the local IP directly
+
+# how to install a FTP server in linux
+1. sudo apt-get upgrade # make it up to date
+2. sudo apt-get install vsftpd # install the FTP server
+3. sudo apt-get install filezilla # install the FTP app
+4. sudo nano /etc/vsftpd.conf # config the vsftpd
+    a. local_enable=YES # allow local user to login
+    b. write_enable=YES # allow to upload file to server
+    c. disable ASCII mangling
+        ascii_upload_enable=YES
+        ascii_download_enable=YES
+    d. change chroot setting:
+        user_sub_token=$USER
+        chroot_local_user=YES
+        chroot_list_enable=YES
+    e. chroot default:
+        chroot_list_file=/etc/vsftpd.chroot_list
+        local_root=/home/$USER/Public_html
+        allow_writeable_chroot=YES
+    f. ls_recurse_enable=YES # Enable the "ls recurse" option
+5. sudo nano /etc/vsftpd.chroot_list # if you want to specify any one who can access the directory add his name here
+6. sudo systemctl restart vsftpd # restart the service to make the change word
+7. sudo apt-get install net-tools # install ifconfig support
